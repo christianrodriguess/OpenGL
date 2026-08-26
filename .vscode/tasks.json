@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${workspaceFolder}/src/main.c",
+                "-I${workspaceFolder}/include",
+                "-L${workspaceFolder}/lib",
+                "-lfreeglut",
+                "-lopengl32",
+                "-lglu32",
+                "-o",
+                "${workspaceFolder}/myprogram.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
