@@ -1,5 +1,28 @@
 #include <GL/freeglut.h>
 
+void desenha(void);
+void desenhaLetraC();
+void desenhaLetraH();
+void desenhaLetraR();
+void escutaTecla(unsigned char tecla, GLint x, GLint y);
+
+GLfloat escala = 1;
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode( GLUT_SINGLE | GLUT_RGBA );
+    glutInitWindowSize(800, 600);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("Minha Janela OpenGL");
+    glutKeyboardFunc(escutaTecla);
+    glutDisplayFunc(desenha);
+
+    glClearColor(0, 0, 1, 0);
+    glutMainLoop();
+
+    return 0;
+}
+
 void desenhaLetraC(){
     glBegin(GL_LINE_STRIP);
         glVertex2f(3, 5);
@@ -36,7 +59,15 @@ void desenhaLetraR(){
 void desenha(void) {
     glClear( GL_COLOR_BUFFER_BIT );
 
-    gluOrtho2D(0, 13, 0, 10);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    
+    gluOrtho2D(0, 12, 0, 12);
+
+    glScalef(escala, escala, 0);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
     desenhaLetraC();
     desenhaLetraH();
@@ -45,16 +76,16 @@ void desenha(void) {
     glFlush();  
 }
 
-int main(int argc, char** argv) {
-    glutInit(&argc, argv);
-    glutInitDisplayMode( GLUT_SINGLE | GLUT_RGBA );
-    glutInitWindowSize(800, 600);
-    glutInitWindowPosition(0, 0);
-    glutCreateWindow("Minha Janela OpenGL");
-
-    glutDisplayFunc(desenha);
-    glClearColor(0, 0, 1, 0);
-    glutMainLoop();
-
-    return 0;
+void escutaTecla(unsigned char tecla, GLint x, GLint y){
+    switch (tecla){
+        case '+':
+            escala++;
+            break;
+        case '-':
+            escala--;
+            break;
+        default:
+            break;
+    }
+    desenha();
 }
